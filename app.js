@@ -44,15 +44,14 @@ app.use(bodyParser.json());
 
 //Load Routers
 const userRouter = require("./src/routers/user.router")
-
-//Load TicketRouters
 const ticketRouter = require("./src/routers/ticket.router")
+const tokensRouter = require("./src/routers/tokens.router")
+
 
 //Use Routers
 app.use("/v1/user", userRouter);
-
-//Use TicketRouters
 app.use("/v1/ticket", ticketRouter);
+app.use("/v1/tokens", tokensRouter);
 
 //Error handler
 const handleError = require("./src/utils/errorHandler");

@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { insertUser, getUserByEmail } = require("../modle/user/User.model");
+const { insertUser, getUserByEmail, getUserById } = require("../modle/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { json } = require("body-parser");
 const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
+const {userAuthorization}= require("../middlewares/authorization.middleware");
 
-
-
+//create new user
 router.all('/', (req, res, next) => {
 
     //res.json({message: "return form user router"})
@@ -43,8 +43,16 @@ router.post('/', async (req, res) => {
 
 });
 
+//get user profile router
+router.get("/",userAuthorization, async (req, res) => {
 
-//User Sigin in Router
+    const _id=req.userId;
+    const userProf =await getUserById(_id);
+    res.json({ user:userProf});
+});
+
+
+//User Sign in Router
 router.post("/login", async (req, res) => {
     console.log(req.body);
     const { email, password } = req.body;
@@ -73,7 +81,7 @@ router.post("/login", async (req, res) => {
 
 
     //JWT
-    console.log(typeof user._id);
+    //console.log(typeof user._id);
     const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
     const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
     res.json({
@@ -81,5 +89,6 @@ router.post("/login", async (req, res) => {
         accessJWT, refreshJWT
     });
 });
+
 
 module.exports = router;

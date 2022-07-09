@@ -56,8 +56,32 @@ const storeUserRefreshJWT = (_id, token) => {
     });
   };
 
+ const getUserById =_id =>{
+  return new Promise((resolve, reject) => {
+    if (!_id) return false;
+
+    try {
+
+        UserSchema.findOne({_id }, (error, data) => {
+            if (error) {
+                console.log(error);
+                resolve(error);
+            }
+            console.log(data);
+            resolve(data);
+
+        });
+    } catch (error) {
+        reject(error);
+
+    }
+
+});
+
+ } 
 module.exports = {
     insertUser,
     getUserByEmail,
+    getUserById,
     storeUserRefreshJWT,
 };

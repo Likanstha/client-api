@@ -1,7 +1,6 @@
 ### User sing up endpoint
 POST http://localhost:3001/v1/user
 Content-Type: application/json
-
 {
 "name": "Likan Shrestha",
 "company": "Company Name",
@@ -19,3 +18,11 @@ Content-Type: application/json
     "password":"12345678"
        
 }
+
+### User a user profile endpoint
+GET http://localhost:3001/v1/user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzI1MCwiZXhwIjoxNjU3MzQ3MzEwfQ.-Hw_IauL_yyyyLvo2xhVxUqxLxRZfzLZAlnRIUajNt0
+
+### Token routers
+GET http://localhost:3001/v1/tokens
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzE3MiwiZXhwIjoxNjU5OTM5MTcyfQ.qbHrInqpVv_XNXpgrRx08Cx5mG_VNqlEr6AGdl49wlI
