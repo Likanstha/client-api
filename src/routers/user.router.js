@@ -1,8 +1,11 @@
-const express = require("express")
-const router = express.Router()
-const { insertUser, getUserByEmail } = require("../modle/user/User.model")
+const express = require("express");
+const router = express.Router();
+const { insertUser, getUserByEmail } = require("../modle/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { json } = require("body-parser");
+const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
+
+
 
 router.all('/', (req, res, next) => {
 
@@ -22,11 +25,11 @@ router.post('/', async (req, res) => {
         const hashedPass = await hashPassword(password);
         const newUserObj = {
             name, company, address, phone, email, password: hashedPass
-        }
+        };
         const result = await insertUser(newUserObj);
         console.log(result);
 
-        res.json({ message: "new user created", result })
+        res.json({ message: "new user created", result });
 
 
 
@@ -58,11 +61,25 @@ router.post("/login", async (req, res) => {
     const passFromDb = user && user._id ? user.password : null;
     if (!passFromDb)
         return res.json({ status: "error", message: "Email or password is invalid" });
+
+
     const result = await comparePassword(password, passFromDb);
     console.log(result);
 
 
-    res.json({ status: "success", message: "Login Successfullu!" })
+    if (!result) {
+        res.json({ status: "error", message: "Password did not matched" });
+    }
+
+
+    //JWT
+    console.log(typeof user._id);
+    const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
+    const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
+    res.json({
+        status: "success", message: "Login Successfull!",
+        accessJWT, refreshJWT
+    });
 });
 
 module.exports = router;
