@@ -61,7 +61,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFA
 ### Open new ticket
 POST http://localhost:3001/v1/ticket
 Content-Type: application/json 
-Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImUyQGUuY29tIiwiaWF0IjoxNjA5ODkyOTMxLCJleHAiOjE2MDk5NzkzMzF9.sPqRPk6nKGpS5tMK0uYIJv778CWBfyn3zm_Y9iTS4Iw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ0Njc2LCJleHAiOjE2NTc0NDU1NzZ9.79gXsRfBLIvSKGYQgPIHXx_DvamUDB52W7w_pUG3w4g
 
 {
  "subject": "Form Isue",
@@ -71,6 +71,9 @@ Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImUyQGUuY29tIiw
 
 ###Get all the tickets
 GET http://localhost:3001/v1/ticket
-Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImUyQGUuY29tIiwiaWF0IjoxNjA5ODkyOTMxLCJleHAiOjE2MDk5NzkzMzF9.sPqRPk6nKGpS5tMK0uYIJv778CWBfyn3zm_Y9iTS4Iw
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ0Njc2LCJleHAiOjE2NTc0NDU1NzZ9.79gXsRfBLIvSKGYQgPIHXx_DvamUDB52W7w_pUG3w4g
 
 
+### Get single ticket
+GET http://localhost:3001/v1/ticket/62ca9b729179be28cc3ea1b1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ2MzQ1LCJleHAiOjE2NTc0NDcyNDV9.yuekR0M7V4aMjdqFXL4jgmmucCNWMxzLnIwjQIonNGA
