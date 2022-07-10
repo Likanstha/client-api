@@ -4,8 +4,12 @@ const { insertUser, getUserByEmail, getUserById } = require("../modle/user/User.
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { json } = require("body-parser");
 const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
-const {userAuthorization}= require("../middlewares/authorization.middleware");
-const {setPasswordRestPin}=require("../modle/resetpin/ResetPin.model")
+const { userAuthorization } = require("../middlewares/authorization.middleware");
+const { setPasswordRestPin } = require("../modle/resetpin/ResetPin.model");
+const { emailProcessor } = require("../helpers/emailhelper");
+
+
+
 //create new user
 router.all('/', (req, res, next) => {
 
@@ -44,11 +48,11 @@ router.post('/', async (req, res) => {
 });
 
 //get user profile router
-router.get("/",userAuthorization, async (req, res) => {
+router.get("/", userAuthorization, async (req, res) => {
 
-    const _id=req.userId;
-    const userProf =await getUserById(_id);
-    res.json({ user:userProf});
+    const _id = req.userId;
+    const userProf = await getUserById(_id);
+    res.json({ user: userProf });
 });
 
 
@@ -91,17 +95,20 @@ router.post("/login", async (req, res) => {
     });
 });
 
-router.post("/reset-password", async (req,res)=>{
-const {email}= req.body;
-const user= await getUserByEmail(email);
-console.log(user._id);
- if(user && user._id){
- const setPin=await setPasswordRestPin(email);
- return res.json(setPin);
+router.post("/reset-password", async (req, res) => {
+    const { email } = req.body;
+    const user = await getUserByEmail(email);
+    if (user && user._id) {
+        const setPin = await setPasswordRestPin(email);
+        const result = await emailProcessor(email, setPin.pin);
+        console.log(result);
+        if (result && result.messageId) {
+            return res.json({ status: "success", message: "Email in db then will send code" });
+        }
+        return res.json({ status: "success", message: "unable to process try again later" });
 
-
- }
-    return res.json({status:"error",message : "if email in db then will seend code"});
+    }
+    return res.json({ status: "error", message: "Email not found on db" });
 });
 
 
