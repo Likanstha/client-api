@@ -75,15 +75,23 @@ Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGF
 
 
 ### Get single ticket
-GET http://localhost:3001/v1/ticket/
+GET http://localhost:3001/v1/ticket/62ca997e46a7810fe83c7638
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ2MzQ1LCJleHAiOjE2NTc0NDcyNDV9.yuekR0M7V4aMjdqFXL4jgmmucCNWMxzLnIwjQIonNGA
 
 ### Reply message to the ticket
-PUT http://localhost:3001/v1/ticket/62ca9b729179be28cc3ea1b1
-Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImUyQGUuY29tIiwiaWF0IjoxNjA5ODkxOTg0LCJleHAiOjE2MDk5NzgzODR9.7cUfpK_RF68a-xfxVXuet4PWVqwToUPyDXpupFlCQNI
+PUT http://localhost:3001/v1/ticket/62ca997e46a7810fe83c7638
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ2Nzg0LCJleHAiOjE2NTc0NDc2ODR9.JXTk4HzanuhOBNZU4gYEiSt8xCQUwGlBgs9cFLAWKBk
 Content-Type: application/json 
 
 { 
     "message": "this is the 222 reply", 
     "sender": "Sarita " 
 }
+
+### Close the ticket
+PATCH http://localhost:3001/v1/ticket/close-ticket/62ca997e46a7810fe83c7638
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ3MzQ3LCJleHAiOjE2NTc0NDgyNDd9.gohsHWsq99mvMfGlWcV2nZrrxJ6j47-R_4mgkr5QZNI
+
+### Delete the ticket
+DELETE  http://localhost:3001/v1/ticket/62ca997e46a7810fe83c7638
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ3MzQ3LCJleHAiOjE2NTc0NDgyNDd9.gohsHWsq99mvMfGlWcV2nZrrxJ6j47-R_4mgkr5QZNI
