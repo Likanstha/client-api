@@ -6,8 +6,6 @@ const email = Joi.string().email({
 });
 
 const pin = Joi.number().min(10000).max(999999).required();
-const phone = Joi.number().min(400000001).max(500000001).required();
-
 const newPassword = Joi.string().min(3).max(30).required();
 
 

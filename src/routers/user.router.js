@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { insertUser, getUserByEmail, getUserById, updatePassword } = require("../modle/user/User.model");
+const { insertUser, getUserByEmail, getUserById, updatePassword,storeUserRefreshJWT } = require("../modle/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { json } = require("body-parser");
 const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
@@ -8,6 +8,7 @@ const { userAuthorization } = require("../middlewares/authorization.middleware")
 const { setPasswordRestPin, getPinByEmail,deletePin } = require("../modle/resetpin/ResetPin.model");
 const { emailProcessor } = require("../helpers/emailhelper");
 const {resetPassReqValidation,updatePassValidation} =require("../middlewares/formValidation.middileware");
+const { deleteJWT } = require("../helpers/redis.helper");
 
 
 //create new user
@@ -112,8 +113,6 @@ router.post("/reset-password",resetPassReqValidation, async (req, res) => {
 
 router.patch("/reset-password",updatePassValidation, async (req, res) => {
     const { email, pin, newPassword } = req.body;
-    console.log(email);
-    console.log(pin);
 	const getPin = await getPinByEmail(email, pin);
    
     if(getPin?._id){
@@ -150,6 +149,28 @@ router.patch("/reset-password",updatePassValidation, async (req, res) => {
 	});
 
 });
+
+router.delete("/logout", userAuthorization, async (req, res) => {
+	const { authorization } = req.headers;
+	//this data coming form database
+	const _id = req.userId;
+    
+	// 2. delete accessJWT from redis database
+	deleteJWT(authorization);
+
+	// 3. delete refreshJWT from mongodb
+	const result = await storeUserRefreshJWT(_id, "");
+
+	if (result._id) {
+	 	return res.json({status: "success", message: "Loged out successfully" });
+	}
+
+	res.json({
+		status: "error",
+		message: "Unable to logg you out, plz try again later",
+	});
+});
+
 module.exports = router;
 
 /* Done in password reset

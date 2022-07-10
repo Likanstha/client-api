@@ -26,7 +26,8 @@ Content-Type: application/json
 GET http://localhost:3001/v1/user
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzI1MCwiZXhwIjoxNjU3MzQ3MzEwfQ.-Hw_IauL_yyyyLvo2xhVxUqxLxRZfzLZAlnRIUajNt0
 
-### Token router
+
+### Token router new token generator
 GET http://localhost:3001/v1/tokens
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzE3MiwiZXhwIjoxNjU5OTM5MTcyfQ.qbHrInqpVv_XNXpgrRx08Cx5mG_VNqlEr6AGdl49wlI
 
@@ -37,16 +38,19 @@ POST http://localhost:3001/v1/user/reset-password
 Content-Type: application/json
 
 {
-    "email":"likan.stha2@gmail.com"
+    "email":"likan.stha@gmail.com"
 }
 
-### Update newvPassword endpoint
+### Update new Password endpoint
 PATCH http://localhost:3001/v1/user/reset-password
 Content-Type: application/json
 
 {
     "email":"likan.stha@gmail.com",
-    "pin":7501857,
-    "newPassword":"12345678910"
+    "pin":348863,
+    "newPassword":"0"
 }
 
+### User Logout endpoint
+DELETE http://localhost:3001/v1/user/logout
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQwODM4LCJleHAiOjE2NTc0NDA4OTh9.HQ0fpTLnIQ7jMp4AAL06cj8GZw5wqpX3KTC9dDhupOk
