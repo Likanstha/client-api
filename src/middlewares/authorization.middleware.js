@@ -7,6 +7,7 @@ const userAuthorization = async (req, res, next) => {
     //1.vERIFY JWT IS ValidityState
     const { authorization } = req.headers;
 
+    console.log(authorization);
 
     const decoded = await verifyAccessJWT(authorization);
    
