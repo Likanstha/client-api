@@ -75,5 +75,15 @@ Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGF
 
 
 ### Get single ticket
-GET http://localhost:3001/v1/ticket/62ca9b729179be28cc3ea1b1
+GET http://localhost:3001/v1/ticket/
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuLnN0aGFAZ21haWwuY29tIiwiaWF0IjoxNjU3NDQ2MzQ1LCJleHAiOjE2NTc0NDcyNDV9.yuekR0M7V4aMjdqFXL4jgmmucCNWMxzLnIwjQIonNGA
+
+### Reply message to the ticket
+PUT http://localhost:3001/v1/ticket/62ca9b729179be28cc3ea1b1
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImUyQGUuY29tIiwiaWF0IjoxNjA5ODkxOTg0LCJleHAiOjE2MDk5NzgzODR9.7cUfpK_RF68a-xfxVXuet4PWVqwToUPyDXpupFlCQNI
+Content-Type: application/json 
+
+{ 
+    "message": "this is the 222 reply", 
+    "sender": "Sarita " 
+}
