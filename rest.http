@@ -7,7 +7,7 @@ Content-Type: application/json
 "company": "Company Name",
 "address": "Some address Sydney",
 "phone":999,
-"email":"likan@gmail.com",
+"email":"likan.stha@gmail.com",
 "password":"12345678"
 }
 
@@ -16,17 +16,9 @@ POST http://localhost:3001/v1/user/login
 Content-Type: application/json 
 
 {
-    "email": "likan@gmail.com",
-    "password":"12345678"
+    "email": "likan.stha@gmail.com",
+    "password":"12345678910"
        
-}
-
-### Password reset endpoints
-POST http://localhost:3001/v1/user/reset-password
-Content-Type: application/json
-
-{
-    "email":"likan@gmail.com"
 }
 
 
@@ -34,7 +26,27 @@ Content-Type: application/json
 GET http://localhost:3001/v1/user
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzI1MCwiZXhwIjoxNjU3MzQ3MzEwfQ.-Hw_IauL_yyyyLvo2xhVxUqxLxRZfzLZAlnRIUajNt0
 
-### Token routers
+### Token router
 GET http://localhost:3001/v1/tokens
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpa2FuQGdtYWlsLmNvbSIsImlhdCI6MTY1NzM0NzE3MiwiZXhwIjoxNjU5OTM5MTcyfQ.qbHrInqpVv_XNXpgrRx08Cx5mG_VNqlEr6AGdl49wlI
+
+
+
+### Password reset endpoint
+POST http://localhost:3001/v1/user/reset-password
+Content-Type: application/json
+
+{
+    "email":"likan.stha2@gmail.com"
+}
+
+### Update newvPassword endpoint
+PATCH http://localhost:3001/v1/user/reset-password
+Content-Type: application/json
+
+{
+    "email":"likan.stha@gmail.com",
+    "pin":7501857,
+    "newPassword":"12345678910"
+}
 
