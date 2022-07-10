@@ -7,7 +7,7 @@ const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
 const { userAuthorization } = require("../middlewares/authorization.middleware");
 const { setPasswordRestPin, getPinByEmail,deletePin } = require("../modle/resetpin/ResetPin.model");
 const { emailProcessor } = require("../helpers/emailhelper");
-
+const {resetPassReqValidation,updatePassValidation} =require("../middlewares/formValidation.middileware");
 
 
 //create new user
@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
     });
 });
 
-router.post("/reset-password", async (req, res) => {
+router.post("/reset-password",resetPassReqValidation, async (req, res) => {
     const { email } = req.body;
     const user = await getUserByEmail(email);
     if (user && user._id) {
@@ -110,7 +110,7 @@ router.post("/reset-password", async (req, res) => {
     return res.json({ status: "error", message: "Email not found on db" });
 });
 
-router.patch("/reset-password", async (req, res) => {
+router.patch("/reset-password",updatePassValidation, async (req, res) => {
     const { email, pin, newPassword } = req.body;
     console.log(email);
     console.log(pin);
