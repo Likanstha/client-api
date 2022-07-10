@@ -5,7 +5,7 @@ const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { json } = require("body-parser");
 const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
 const {userAuthorization}= require("../middlewares/authorization.middleware");
-
+const {setPasswordRestPin}=require("../modle/resetpin/ResetPin.model")
 //create new user
 router.all('/', (req, res, next) => {
 
@@ -85,10 +85,45 @@ router.post("/login", async (req, res) => {
     const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
     const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
     res.json({
-        status: "success", message: "Login Successfull!",
+        status: "success",
+        message: "Login Successfull!",
         accessJWT, refreshJWT
     });
 });
 
+router.post("/reset-password", async (req,res)=>{
+const {email}= req.body;
+const user= await getUserByEmail(email);
+console.log(user._id);
+ if(user && user._id){
+ const setPin=await setPasswordRestPin(email);
+ return res.json(setPin);
 
+
+ }
+    return res.json({status:"error",message : "if email in db then will seend code"});
+});
+
+
+
+/* A.Create and send password reset pin number
+    1. receive email
+    2.check if email exist in db
+    3.create unique 6 digit pin
+    4. save pin and email in db
+    5.email the pin
+    
+    B.Update password in Db
+    1.receive email, piin and new password
+    2.validate pin
+    3.encrypt new password
+    4.update password in db
+    5.send email notification
+
+    C.Server side form validation
+    1.client middleware to validate form data
+
+
+
+*/
 module.exports = router;
